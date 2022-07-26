@@ -1,0 +1,22 @@
+{
+  "name": "fooddeliveryapplication",
+  "version": "1.0.0",
+  "description": "Fooddies",
+  "main": "index.js",
+  "scripts": {
+    "start": "node back/server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sruju333/FoodDeliveryApplication.git"
+  },
+  "author": "Group5",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sruju333/FoodDeliveryApplication/issues"
+  },
+  "homepage": "https://github.com/sruju333/FoodDeliveryApplication#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
