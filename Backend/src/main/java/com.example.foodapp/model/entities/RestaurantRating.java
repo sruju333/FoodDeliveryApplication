@@ -1,6 +1,5 @@
 package com.example.foodapp.model.entities;
 
-import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.persistence.*;
 
