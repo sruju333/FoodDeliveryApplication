@@ -1,4 +1,4 @@
 package com.example.foodapp.model;
 
-public class Order {
+public class SampleModel {
 }
