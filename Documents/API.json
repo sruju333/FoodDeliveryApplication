@@ -1,0 +1,306 @@
+[
+    {
+        "endpoint": "restaurants",
+        "path": "/restaurants/get",
+        "method": "GET"
+    },
+    {
+        "endpoint": "restaurant details",
+        "path": "/restaurants/get/{id}",
+        "method": "GET"
+    },
+
+    {
+        "endpoint": "place order",
+        "path": "/order/place",
+        "method": "POST",
+        "request:data": {
+            "products": [{
+                "type": "List",
+                "required": true
+            }],
+            "deliveryAddress": {
+                "type": "String",
+                "required": true
+            },
+            "price":{
+                "type": "Float",
+                "required": true
+            },
+            "orderStatus":{
+                "type": "Integer",
+                "required": true
+            },
+            "paymentStatus":{
+                "type": "Integer",
+                "required": true
+            },
+            "date":{
+                "type": "String",
+                "required": true
+            }
+        }
+    },
+    {
+        "endpoint": "place order",
+        "path": "/order/place",
+        "method": "POST",
+        "request:data": {
+
+        }
+    },
+
+    {
+        "endpoint": "add product items",
+        "path": "/restaurants/add_item",
+        "method": "POST",
+        "request:data": {
+            "restaurantId": {
+                "type": "Integer",
+                "required": "true"
+            },
+            "productName": {
+                "type": "String",
+                "required": "true"
+            },
+            "price": {
+                "type": "Integer",
+                "required": "true"
+            },
+            "isVeg": {
+                "type": "Boolean",
+                "required": "true"
+            },
+            "isAvailable": {
+                "type": "Boolean",
+                "required": "true"
+            },
+            "discount": {
+                "type": "Integer",
+                "required": "false",
+                "range": "1-100"
+            }
+            
+        },
+        "response:data":{
+            "status": {
+                "type": "Boolean"
+            },
+            "message":{
+                "type": "String"
+            }
+
+        }
+    },
+    {
+        "endpoint": "Browse Menu Items for a restaurant",
+        "path": "/restaurants/{restaurant_id}",
+        "method": "GET",
+        "response:data": {
+            "status": {
+                "type": "Boolean"
+            },
+            "message":{
+                "type": "String"
+            },
+            "Items": [
+                {
+                    "productId": {
+                        "type": "Integer",
+                        "required": "true"
+                    },
+                    "restaurantId": {
+                        "type": "Integer",
+                        "required": "true"
+                    },
+                    "productName": {
+                        "type": "String",
+                        "required": "true"
+                    },
+                    "price": {
+                        "type": "Integer",
+                        "required": "true"
+                    },
+                    "isVeg": {
+                        "type": "Boolean",
+                        "required": "true"
+                    },
+                    "isAvailable": {
+                        "type": "Boolean",
+                        "required": "true"
+                    },
+                    "discount": {
+                        "type": "Integer",
+                        "required": "false",
+                        "range": "1-100"
+                    }
+                }
+            ]
+            
+        }
+    },
+
+    {
+        "endpoint": "update  order status",
+        "path": "/orders/update_status",
+        "method": "PUT",
+        "request:data":{
+            "order_id":{
+                "type":"Integer"
+            },
+            "orderStatus":{
+                "type":"Integer"
+            }
+        },
+        "response:data":{
+            "status":{
+                "type":"Boolean"
+            },
+            "message":{
+                "type":"String"
+            }
+        }
+    },
+    {
+        "endpoint": "tracking order",
+        "path": "/orders/{order_id}",
+        "method": "GET",
+        "request:data":{
+            "order_id":{
+                "type":"Integer",
+                "required": true
+            }
+        },
+        "response:data":{
+            "status":{
+                "type":"Boolean"
+            },
+            "message":{
+                "type":"String"
+            },
+            "order": {
+                "products": [{
+                    "type": "List",
+                    "required": true
+                }],
+                "deliveryAddress": {
+                    "type": "String",
+                    "required": true
+                },
+                "price":{
+                    "type": "Float",
+                    "required": true
+                },
+                "orderStatus":{
+                    "type": "Integer",
+                    "required": true
+                },
+                "paymentStatus":{
+                    "type": "Integer",
+                    "required": true
+                },
+                "date":{
+                    "type": "String",
+                    "required": true
+                }
+            }
+        }
+    },
+    {
+        "endpoint": "tracking order",
+        "path": "/orders/user/{user_id}",
+        "method": "GET",
+        "request:data":{
+            "order_id":{
+                "type":"Integer",
+                "required": true
+            }
+        },
+        "response:data":{
+            "status":{
+                "type":"Boolean"
+            },
+            "message":{
+                "type":"String"
+            },
+            "order": {
+                "products": [{
+                    "type": "List",
+                    "required": true
+                }],
+                "deliveryAddress": {
+                    "type": "String",
+                    "required": true
+                },
+                "price":{
+                    "type": "Float",
+                    "required": true
+                },
+                "orderStatus":{
+                    "type": "Integer",
+                    "required": true
+                },
+                "paymentStatus":{
+                    "type": "Integer",
+                    "required": true
+                },
+                "date":{
+                    "type": "String",
+                    "required": true
+                }
+            }
+        }
+    },
+    {
+        "endpoint": "tracking order",
+        "path": "/orders/restaurant/{restaurant_id}",
+        "method": "GET",
+        "request:data":{
+            "order_id":{
+                "type":"Integer",
+                "required": true
+            }
+        },
+        "response:data":{
+            "status":{
+                "type":"Boolean"
+            },
+            "message":{
+                "type":"String"
+            },
+            "order": {
+                "products": [{
+                    "type": "List",
+                    "required": true
+                }],
+                "deliveryAddress": {
+                    "type": "String",
+                    "required": true
+                },
+                "price":{
+                    "type": "Float",
+                    "required": true
+                },
+                "orderStatus":{
+                    "type": "Integer",
+                    "required": true
+                },
+                "paymentStatus":{
+                    "type": "Integer",
+                    "required": true
+                },
+                "date":{
+                    "type": "String",
+                    "required": true
+                }
+            }
+        }
+    } 
+
+
+
+
+
+]
+
+
