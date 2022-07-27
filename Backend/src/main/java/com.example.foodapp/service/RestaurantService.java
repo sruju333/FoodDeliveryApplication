@@ -85,6 +85,7 @@ public class RestaurantService {
                     }
                     updateRestaurantResponse.setStatus(true);
                     updateRestaurantResponse.setMessage("Restaurant details updated successfully");
+                    restaurantRepository.save(restaurant);
                 }
 
             }else{
