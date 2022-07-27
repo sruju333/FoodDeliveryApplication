@@ -12,8 +12,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-    @NonNull
-    private String email;
+    private @NonNull String email;
 
     private String userName;
     private UserRole role;
@@ -31,12 +30,11 @@ public class User {
         this.userId = userId;
     }
 
-    @NonNull
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(@NonNull String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 

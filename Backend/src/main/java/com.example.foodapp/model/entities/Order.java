@@ -1,13 +1,13 @@
 package com.example.foodapp.model.entities;
 
 import com.example.foodapp.enumclasses.OrderStatus;
-import com.example.foodapp.service.OrderService;
+
 import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.HashMap;
-
+import javax.persistence.Id;
 @Entity
 @Table(name = "orders")
 public class Order {
@@ -15,8 +15,8 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
-    @NonNull
-    private Long userId;
+
+    private @NonNull Long userId;
 
     private HashMap<Long, Integer> products;
 
