@@ -31,7 +31,7 @@ public class RestaurantService {
         return ALlRestaurants;
     }
     public List<Restaurant> getALlForManager(long RmId){
-        List<Restaurant> AllRestaurants=restaurantRepository.findById(RmId);
+        List<Restaurant> AllRestaurants=restaurantRepository.findByRestaurantManagerId(RmId);
         return AllRestaurants;
     }
     public RestaurantRating getRestaurantRating(long Id){

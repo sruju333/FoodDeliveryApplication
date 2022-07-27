@@ -25,5 +25,10 @@ node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+<<<<<<< HEAD
+
+=======
+>>>>>>> b8f10ad77250892cc2dabd874211605bd3f4f3d7
 /Backend/target
 /Backend/.idea
+/Backend/Backend.iml

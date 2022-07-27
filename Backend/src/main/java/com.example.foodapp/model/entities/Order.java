@@ -1,9 +1,8 @@
 package com.example.foodapp.model.entities;
 
 import com.example.foodapp.enumclasses.OrderStatus;
-
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.lang.NonNull;
-
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.HashMap;
@@ -25,6 +24,7 @@ public class Order {
 
     private OrderStatus orderStatus;
 
+    @CreationTimestamp
     private Date date;
 
     private String deliveryAddress;

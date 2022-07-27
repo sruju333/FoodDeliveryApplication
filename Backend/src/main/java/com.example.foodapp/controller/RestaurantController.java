@@ -25,6 +25,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/restaurant")
+
 public class RestaurantController {
 
     @Autowired
@@ -41,19 +42,19 @@ public class RestaurantController {
         return "Rating received! Thanks :)";
     }
 
-    @GetMapping(value = "/",consumes = "application/json", produces = "application/json")
+    @GetMapping(value = "/")
     public ResponseEntity<List<Restaurant>> getAll(){
         return new ResponseEntity<List<Restaurant>>(restaurantService.getALl(), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{RmId}",consumes = "application/json",produces = "application/json")
+    @GetMapping(value = "/{RmId}")
     public ResponseEntity<List<Restaurant>> getAllForManager(@PathVariable long RmId){
         List<Restaurant> Allrestaurants=restaurantService.getALlForManager(RmId);
 
         return new ResponseEntity<List<Restaurant>>(Allrestaurants,HttpStatus.OK);
     }
 
-    @GetMapping(value = "/products/{RId}",consumes = "application/json",produces = "application/json")
+    @GetMapping(value = "/products/{RId}")
     public ResponseEntity<List<Product>> getAllItems(@PathVariable long RId){
         List<Product> AllProducts=productService.getALlItems(RId);
         //RestaurantRating rating= restaurantService.getRestaurantRating(RId);
