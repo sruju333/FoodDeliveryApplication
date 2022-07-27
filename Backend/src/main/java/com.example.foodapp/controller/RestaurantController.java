@@ -3,7 +3,6 @@ package com.example.foodapp.controller;
 import com.example.foodapp.model.request.CreateRestaurant;
 import com.example.foodapp.model.request.RestaurantDetailsUpdate;
 import com.example.foodapp.model.response.CreateRestaurantResponse;
-import com.example.foodapp.model.response.Response;
 import com.example.foodapp.model.response.UpdateRestaurantResponse;
 import com.example.foodapp.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;

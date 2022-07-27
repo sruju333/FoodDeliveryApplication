@@ -1,12 +1,6 @@
 package com.example.foodapp.model.entities;
 
-
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Table;
-import javax.persistence.Id;
+import javax.persistence.*;
 @Entity
 @Table(name = "products")
 public class Product {
