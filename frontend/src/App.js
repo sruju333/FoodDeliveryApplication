@@ -5,6 +5,8 @@ import Footer from './components/Footer';
 import HomeScreen from './screens/HomeScreen';
 import RestaurantScreen from './screens/RestaurantScreen'
 import CartScreen from './screens/CartScreen';
+import LoginScreen from './screens/LoginScreen';
+import RegisterScreen from './screens/RegisterScreen';
 
 const App=()=> {
   return (
@@ -17,6 +19,8 @@ const App=()=> {
             <Route path='/restaurant/:id' element={<RestaurantScreen />} />
             <Route path='/cart/:id' element={<CartScreen />}/>
             <Route path='/cart' element={<CartScreen />}/>
+            <Route path='/login' element={<LoginScreen />}/>
+            <Route path='/register' element={<RegisterScreen />}/>
           </Routes>
         </Container>
       </main>
