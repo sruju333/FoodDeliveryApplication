@@ -2,11 +2,6 @@ package com.example.foodapp.model.entities;
 
 import com.example.foodapp.enumclasses.UserRole;
 import org.springframework.lang.NonNull;
-
-<<<<<<< HEAD
-
-=======
->>>>>>> b8f10ad77250892cc2dabd874211605bd3f4f3d7
 import javax.persistence.*;
 
 @Entity

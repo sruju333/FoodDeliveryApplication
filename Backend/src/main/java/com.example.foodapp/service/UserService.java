@@ -74,4 +74,32 @@ public class UserService {
         return loginResponse;
     }
 
+    public String updateUser(User updatedUser){
+        if(updatedUser.getUserId()!=null){
+
+            User user = userRepository.findById(updatedUser.getUserId()).orElse(null);
+
+            if(user!=null){
+                if(updatedUser.getUserName()!=null){
+                    user.setUserName(updatedUser.getUserName());
+                }
+                if(updatedUser.getAddress()!=null){
+                    user.setAddress(updatedUser.getAddress());
+                }
+                if(updatedUser.getPhone()!=null){
+                    user.setPhone(updatedUser.getPhone());
+                }
+                if(updatedUser.getPassword()!=null){
+                    user.setPassword(updatedUser.getPassword());
+                }
+
+            }
+
+            userRepository.save(user);
+
+        }
+        return "User details updated";
+
+    }
+
 }

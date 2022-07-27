@@ -1,13 +1,12 @@
 package com.example.foodapp.model.entities;
 
 import javax.persistence.*;
-<<<<<<< HEAD
-=======
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
->>>>>>> b8f10ad77250892cc2dabd874211605bd3f4f3d7
+
 
 @Entity
 @Table(name = "products")

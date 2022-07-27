@@ -2,26 +2,26 @@ package com.example.foodapp.model.entities;
 
 
 import javax.persistence.*;
-//I(joseph) changed model
+
 @Entity
 @Table(name = "restaurant_ratings")
 public class RestaurantRating {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-   // private Long id;
+    private Long id;
 
     private Long restaurantId;
 
     private Integer rating;
 
-//    public Long getId() {
-//        return id;
-//    }
-//
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Long getRestaurantId() {
         return restaurantId;
