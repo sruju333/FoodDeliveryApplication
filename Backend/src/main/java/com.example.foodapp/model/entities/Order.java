@@ -6,7 +6,7 @@ import org.springframework.lang.NonNull;
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.HashMap;
-
+import javax.persistence.Id;
 @Entity
 @Table(name = "orders")
 public class Order {

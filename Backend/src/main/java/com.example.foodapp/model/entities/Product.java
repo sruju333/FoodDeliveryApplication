@@ -1,9 +1,6 @@
 package com.example.foodapp.model.entities;
 
-
-
 import javax.persistence.*;
-
 @Entity
 @Table(name = "products")
 public class Product {
