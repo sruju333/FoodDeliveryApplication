@@ -1,7 +1,7 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import restaurants from './data/restaurants.js'
-import foods from './data/foods'
+import foods from './data/foods.js'
 
 dotenv.config()
 
@@ -25,8 +25,9 @@ app.get('/api/restaurants/:id', (_req, res) => {
     res.json(restaurant[0])
 })
 
-app.get('/api/restaurant/:id', (_req, res) => {
-    const food = foods[0]
+app.get('/api/restaurant/:id', (req, res) => {
+    const food = foods.find((p) => { return p._id == req.params.id })
+    console.log(food)
     res.json(food)
 })
 
