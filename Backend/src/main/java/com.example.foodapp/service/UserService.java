@@ -3,6 +3,7 @@ package com.example.foodapp.service;
 import com.example.foodapp.model.entities.User;
 import com.example.foodapp.model.request.LoginRequest;
 import com.example.foodapp.model.response.SignUpResponse;
+import com.example.foodapp.model.response.UserDetailsResponse;
 import com.example.foodapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -101,5 +102,16 @@ public class UserService {
         return "User details updated";
 
     }
+    public UserDetailsResponse getUserDetails(Long userId){
+        User user = userRepository.findById(userId).orElse(null);
+        UserDetailsResponse userDetailsResponse = new UserDetailsResponse();
 
+        userDetailsResponse.setUserName(user.getUserName());
+        userDetailsResponse.setId(userId);
+        userDetailsResponse.setEmail(user.getEmail());
+        userDetailsResponse.setRole(user.getRole());
+
+        return userDetailsResponse;
+
+    }
 }
