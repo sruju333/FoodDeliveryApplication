@@ -2,7 +2,8 @@ package com.example.foodapp.model.entities;
 
 import com.example.foodapp.enumclasses.UserRole;
 import org.springframework.lang.NonNull;
-import javax.persistence.Id;
+import javax.persistence.*;
+
 
 
 

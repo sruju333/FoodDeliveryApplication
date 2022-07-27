@@ -1,15 +1,22 @@
 package com.example.foodapp.service;
 
 import com.example.foodapp.model.entities.Product;
-import com.example.foodapp.model.response.Response;
 import com.example.foodapp.repository.ProductRepository;
+import com.example.foodapp.model.response.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ProductService {
     @Autowired
     private ProductRepository productRepository;
+
+    public List<Product> getALlItems(long RId){
+        List<Product> AllItems=productRepository.findByRestaurantId(RId);
+       return AllItems;
+    }
 
     public Response addProduct(Product product){
 
@@ -20,7 +27,7 @@ public class ProductService {
 
     public Response updateProduct(Product updatedProduct){
         long productId=updatedProduct.getProductId();
-        Product product= productRepository.findById(productId);
+        Product product= productRepository.findByProductId(productId);
         Response response = new Response(true,"Product Details Updated Successfully");
         if(updatedProduct.getProductName()!=null)
             product.setProductName(updatedProduct.getProductName());
