@@ -1,8 +1,7 @@
 package com.example.foodapp.model.entities;
 
 import com.example.foodapp.enumclasses.OrderStatus;
-import com.example.foodapp.service.OrderService;
-import com.mongodb.lang.NonNull;
+import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -15,8 +14,8 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
-    @NonNull
-    private Long userId;
+
+    private @NonNull Long userId;
 
     private HashMap<Long, Integer> products;
 

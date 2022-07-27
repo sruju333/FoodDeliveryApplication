@@ -1,13 +1,10 @@
 package com.example.foodapp.model.entities;
 
 import com.example.foodapp.enumclasses.UserRole;
-import com.mongodb.lang.NonNull;
-import org.springframework.data.annotation.Id;
+import org.springframework.lang.NonNull;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Table;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name ="userinfo")
@@ -16,8 +13,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-    @NonNull
-    private String email;
+    private @NonNull String email;
 
     private String userName;
     private UserRole role;
@@ -35,12 +31,11 @@ public class User {
         this.userId = userId;
     }
 
-    @NonNull
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(@NonNull String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
