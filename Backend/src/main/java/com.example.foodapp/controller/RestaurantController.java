@@ -1,18 +1,21 @@
 package com.example.foodapp.controller;
 
+import com.example.foodapp.model.entities.RestaurantRating;
+import com.example.foodapp.repository.RestaurantRatingRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
-
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import com.example.foodapp.model.entities.Restaurant;
 import com.example.foodapp.model.entities.Product;
-import com.example.foodapp.model.entities.RestaurantRating;
 import com.example.foodapp.model.request.CreateRestaurant;
 import com.example.foodapp.model.request.RestaurantDetailsUpdate;
 import com.example.foodapp.model.response.CreateRestaurantResponse;
 import com.example.foodapp.model.response.UpdateRestaurantResponse;
-import com.example.foodapp.repository.RestaurantRepository;
 import com.example.foodapp.service.ProductService;
 import com.example.foodapp.service.RestaurantService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,17 +24,26 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/restaurant")
+@RequestMapping(value = "/restaurant")
 public class RestaurantController {
+
+    @Autowired
+    RestaurantRatingRepository restaurantRatingRepository;
 
     @Autowired
     RestaurantService restaurantService;
     @Autowired
     ProductService productService;
 
+    @PostMapping(value = "/rating", consumes = "application/json")
+    public String addRating(@RequestBody RestaurantRating restaurantRating) {
+        restaurantRatingRepository.save(restaurantRating);
+        return "Rating received! Thanks :)";
+    }
+
     @GetMapping(value = "/",consumes = "application/json", produces = "application/json")
-   public ResponseEntity<List<Restaurant>> getAll(){
-    return new ResponseEntity<List<Restaurant>>(restaurantService.getALl(), HttpStatus.OK);
+    public ResponseEntity<List<Restaurant>> getAll(){
+        return new ResponseEntity<List<Restaurant>>(restaurantService.getALl(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{RmId}",consumes = "application/json",produces = "application/json")
