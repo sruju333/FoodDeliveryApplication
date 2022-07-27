@@ -1,15 +1,20 @@
 package com.example.foodapp.model.entities;
 
 import com.example.foodapp.enumclasses.OrderStatus;
+<<<<<<< HEAD
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.lang.NonNull;
 
+=======
+
+import org.springframework.lang.NonNull;
+>>>>>>> b8f10ad77250892cc2dabd874211605bd3f4f3d7
 
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.HashMap;
-
+import javax.persistence.Id;
 @Entity
 @Table(name = "orders")
 public class Order {
@@ -17,8 +22,8 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
-    @NonNull
-    private Long userId;
+
+    private @NonNull Long userId;
 
     private HashMap<Long, Integer> products;
 

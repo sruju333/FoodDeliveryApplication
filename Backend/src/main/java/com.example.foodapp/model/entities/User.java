@@ -3,7 +3,10 @@ package com.example.foodapp.model.entities;
 import com.example.foodapp.enumclasses.UserRole;
 import org.springframework.lang.NonNull;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> b8f10ad77250892cc2dabd874211605bd3f4f3d7
 import javax.persistence.*;
 
 @Entity
@@ -13,8 +16,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-    @NonNull
-    private String email;
+    private @NonNull String email;
 
     private String userName;
     private UserRole role;
@@ -32,12 +34,11 @@ public class User {
         this.userId = userId;
     }
 
-    @NonNull
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(@NonNull String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
