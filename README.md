@@ -3,7 +3,7 @@
 
 - Rajjyoti Doley
 - Sourabh Chauhan
-- Gurram Spourgeon
+- Gurram Joseph Spourgeon
 - Akshat Gupta
 - T Siva Kumar
 - Akshat Gupta
