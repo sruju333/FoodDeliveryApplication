@@ -1,8 +1,8 @@
 package com.example.foodapp.model.entities;
 
 import com.example.foodapp.enumclasses.UserRole;
-import com.mongodb.lang.NonNull;
-import org.springframework.data.annotation.Id;
+import org.springframework.lang.NonNull;
+import javax.persistence.Id;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

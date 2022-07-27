@@ -2,12 +2,12 @@ package com.example.foodapp.model.entities;
 
 import com.example.foodapp.enumclasses.OrderStatus;
 import com.example.foodapp.service.OrderService;
-import com.mongodb.lang.NonNull;
+import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.HashMap;
-
+import javax.persistence.Id;
 @Entity
 @Table(name = "orders")
 public class Order {
