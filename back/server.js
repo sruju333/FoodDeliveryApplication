@@ -1,6 +1,7 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import restaurants from './data/restaurants.js'
+import foods from './data/foods'
 
 dotenv.config()
 
@@ -25,7 +26,8 @@ app.get('/api/restaurants/:id', (_req, res) => {
 })
 
 app.get('/api/restaurant/:id', (_req, res) => {
-    const food = 
+    const food = foods[0]
+    res.json(food)
 })
 
 const PORT = process.env.PORT || 5000
