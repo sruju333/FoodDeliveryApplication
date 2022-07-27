@@ -1,7 +1,5 @@
 package com.example.foodapp.model.entities;
-
-import org.springframework.data.annotation.Id;
-
+import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
