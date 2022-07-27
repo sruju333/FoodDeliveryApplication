@@ -1,11 +1,13 @@
 package com.example.foodapp.model.entities;
 
 import com.example.foodapp.enumclasses.OrderStatus;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.lang.NonNull;
 
-import com.mongodb.lang.NonNull;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.HashMap;
 
 @Entity
@@ -25,6 +27,7 @@ public class Order {
 
     private OrderStatus orderStatus;
 
+    @CreationTimestamp
     private Date date;
 
     private String deliveryAddress;
