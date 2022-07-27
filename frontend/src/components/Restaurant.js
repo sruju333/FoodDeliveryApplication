@@ -2,7 +2,6 @@ import React from 'react'
 import {Card} from 'react-bootstrap'
 import Rating from './Rating'
 import {Link} from 'react-router-dom'
-import Category from './Category'
 
 const Restaurant = ({restaurant}) => {
   return (
@@ -18,10 +17,6 @@ const Restaurant = ({restaurant}) => {
 
         <Card.Text as='div'>
             <Rating value={restaurant.rating}/>
-        </Card.Text>
-
-        <Card.Text as='div'>
-            <Category text={restaurant.category} color={restaurant.category==='Veg' ? 'green' : 'red'}/>
         </Card.Text>
         </Card.Body>
     </Card>

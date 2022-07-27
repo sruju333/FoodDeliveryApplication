@@ -1,20 +1,33 @@
-const express = require('express')
-const restaurants = require('./data/restaurants')
-const foods = require('./data/foods')
+import express from 'express'
+import dotenv from 'dotenv'
+import restaurants from './data/restaurants.js'
+
+dotenv.config()
 
 const app = express()
 
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
     res.send('API is running...')
 })
 
-app.get('/api/restaurants', (req, res) => {
+app.get('/api/restaurants', (_req, res) => {
     res.json(restaurants)
 })
 
-app.get('/api/restaurants/:id', (req, res) => {
-    const restaurant = restaurants.find(p => p._id === req.params.id) 
-    res.json(foods)
+app.get('/api/restaurants/:id', (_req, res) => {
+    const restaurant = []
+    for(let i = 0 ; i < restaurants.length ; i++){
+        if(restaurants[i]._id == _req.params.id)
+            restaurant.push(restaurants[i].foods)
+    }   
+    //console.log(restaurant) 
+    res.json(restaurant[0])
 })
 
-app.listen(5000, console.log('Server running on port 5000'))
+app.get('/api/restaurant/:id', (_req, res) => {
+    const food = 
+})
+
+const PORT = process.env.PORT || 5000
+
+app.listen(PORT, console.log(`Server running in ${process.env.NODE_ENV} mode port ${PORT}`))
