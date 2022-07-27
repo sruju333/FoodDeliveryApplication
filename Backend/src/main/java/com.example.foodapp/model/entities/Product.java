@@ -1,4 +1,5 @@
 package com.example.foodapp.model.entities;
+
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
