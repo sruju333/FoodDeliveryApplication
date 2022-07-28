@@ -1,5 +1,7 @@
 package com.example.foodapp.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 
 import javax.persistence.Entity;
@@ -17,7 +19,11 @@ public class Product {
     private Long restaurantId;
     private String productName;
     private Float price;
+
+    @JsonProperty("isVeg")
     private Boolean isVeg;
+
+    @JsonProperty("isAvailable")
     private Boolean isAvailable;
     private Integer discount;
     private String productImage;
