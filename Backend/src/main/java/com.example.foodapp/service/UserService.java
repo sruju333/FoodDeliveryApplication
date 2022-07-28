@@ -47,6 +47,8 @@ public class UserService {
         user.setPhone(signUpUserRequest.getPhone());
         user.setEmail(signUpUserRequest.getEmail());
         user.setRole(UserRole.valueOf(signUpUserRequest.getRole()));
+        user.setJwt(signUpUserRequest.getJwt());
+        user.setSalt(signUpUserRequest.getSalt());
 
         User newUser = userRepository.save(user);
 
