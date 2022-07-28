@@ -52,5 +52,6 @@ public class UserController {
     @GetMapping(value="/getUser/{id}", consumes = "application/json")
     public ResponseEntity<?> getUser(@PathVariable Long id){
         return ResponseEntity.ok(userService.getUserDetails(id));
+
     }
 }
