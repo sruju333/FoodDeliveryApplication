@@ -12,7 +12,7 @@ const Food = ({food}) => {
     const navigate = useNavigate()
 
     const addToCartHandler = () => {
-        navigate(`/cart/${params.id}?qty=${qty}`)
+        navigate(`/cart/${food._id}?qty=${qty}`)
     }
     
 
