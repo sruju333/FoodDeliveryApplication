@@ -1,6 +1,7 @@
 package com.example.foodapp.controller;
 
 import com.example.foodapp.model.entities.RestaurantRating;
+import com.example.foodapp.model.response.RestaurantResponse;
 import com.example.foodapp.repository.RestaurantRatingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -43,8 +44,8 @@ public class RestaurantController {
     }
 
     @GetMapping(value = "/")
-    public ResponseEntity<List<Restaurant>> getAll(){
-        return new ResponseEntity<List<Restaurant>>(restaurantService.getALl(), HttpStatus.OK);
+    public ResponseEntity<List<RestaurantResponse>> getAll(){
+        return new ResponseEntity<List<RestaurantResponse>>(restaurantService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{RmId}")
