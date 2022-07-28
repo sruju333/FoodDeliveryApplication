@@ -1,5 +1,6 @@
 package com.example.foodapp.service;
 
+import com.example.foodapp.enumclasses.UserRole;
 import com.example.foodapp.model.entities.Restaurant;
 import com.example.foodapp.model.entities.RestaurantRating;
 import com.example.foodapp.repository.RestaurantRatingRepository;
@@ -59,6 +60,11 @@ public class RestaurantService {
                 createRestaurantResponse.setMessage("no such user");
                 return createRestaurantResponse;
             }
+            if(user.getRole()!= UserRole.RMANAGER){
+                createRestaurantResponse.setStatus(false);
+                createRestaurantResponse.setMessage("please login as Restaurant manager to add restaurant");
+                return createRestaurantResponse;
+            }
             Long ManagerId=user.getUserId();
             restaurant.setRestaurantManagerId(ManagerId);
             restaurantRepository.save(restaurant);
@@ -84,6 +90,11 @@ public class RestaurantService {
                     updateRestaurantResponse.setMessage("no such restaurant id for user");
                 }
                 else{
+                    if(user.getRole()!=UserRole.RMANAGER){
+                        updateRestaurantResponse.setStatus(false);
+                        updateRestaurantResponse.setMessage("please login as restaurant manager");
+                        return updateRestaurantResponse;
+                    }
                     if(restaurantDetailsUpdate.getRestaurantAddress()!=null){
                         restaurant.setRestaurantAddress(restaurantDetailsUpdate.getRestaurantAddress());
                     }
@@ -95,6 +106,7 @@ public class RestaurantService {
                     }
                     updateRestaurantResponse.setStatus(true);
                     updateRestaurantResponse.setMessage("Restaurant details updated successfully");
+                    restaurantRepository.save(restaurant);
                 }
 
             }else{

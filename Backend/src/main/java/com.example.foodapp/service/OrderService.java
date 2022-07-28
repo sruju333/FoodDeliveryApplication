@@ -15,6 +15,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class OrderService {
 
@@ -69,7 +72,20 @@ public class OrderService {
         }
 
     }
+    public List<Order> getOrders(Long userId, Long restaurantId, Long orderId){
+        List<Order> orders=new ArrayList<Order>();
+        if(userId!=null && userId>=1 && restaurantId<1 && orderId<1){
+            orders=ordersRepository.findByUserId(userId);
+        }else if(restaurantId!=null && restaurantId>=1 && userId<1 && orderId<1){
 
+            System.out.println(restaurantId);
+            orders=ordersRepository.findByRestaurantId(restaurantId);
+        }else if(orderId!=null && orderId>=1 && restaurantId<1 && userId<1){
+            Order newOrder=ordersRepository.findByOrderId(orderId);
+            orders.add(newOrder);
+        }else{}
+        return orders;
+    }
     public ResponseEntity<Response> updateOrderStatus(UpdateOrderStatusRequest updateOrderStatusRequest){
 
         Response response = new Response();
