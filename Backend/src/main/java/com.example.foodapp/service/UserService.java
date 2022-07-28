@@ -1,7 +1,9 @@
 package com.example.foodapp.service;
 
+import com.example.foodapp.enumclasses.UserRole;
 import com.example.foodapp.model.entities.User;
 import com.example.foodapp.model.request.LoginRequest;
+import com.example.foodapp.model.request.SignUpUserRequest;
 import com.example.foodapp.model.response.SignUpResponse;
 import com.example.foodapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,23 +22,34 @@ public class UserService {
     @Value("${pepper}")
     private String pepper;
 
-    public SignUpResponse register(User user){
+    public SignUpResponse register(SignUpUserRequest signUpUserRequest){
 
         //first check if already exist or not
         SignUpResponse signUpResponse = new SignUpResponse();
-        if(userRepository.findByEmail(user.getEmail())!=null) {
+        if(userRepository.findByEmail(signUpUserRequest.getEmail())!=null) {
             signUpResponse.setStatus(false);
             signUpResponse.setMessage("SignUp failed! Already Registered. Please sign in");
             return signUpResponse;
         }
 
         String salt = BCrypt.gensalt();
-        String hashedPassword = BCrypt.hashpw(user.getPassword()+pepper,salt);
-        user.setPassword(hashedPassword);
-        user.setSalt(salt);
+        String hashedPassword = BCrypt.hashpw(signUpUserRequest.getPassword()+pepper,salt);
+        signUpUserRequest.setPassword(hashedPassword);
+        signUpUserRequest.setSalt(salt);
 
-        String jwt = BCrypt.hashpw(user.getUserName()+ Instant.now().getEpochSecond(),salt);
-        user.setJwt(jwt);
+        String jwt = BCrypt.hashpw(signUpUserRequest.getUserName()+ Instant.now().getEpochSecond(),salt);
+        signUpUserRequest.setJwt(jwt);
+
+        User user = new User();
+        user.setPassword(signUpUserRequest.getPassword());
+        user.setUserName(signUpUserRequest.getUserName());
+        user.setAddress(signUpUserRequest.getAddress());
+        user.setPhone(signUpUserRequest.getPhone());
+        user.setEmail(signUpUserRequest.getEmail());
+        user.setRole(UserRole.valueOf(signUpUserRequest.getRole()));
+        user.setJwt(signUpUserRequest.getJwt());
+        user.setSalt(signUpUserRequest.getSalt());
+
         User newUser = userRepository.save(user);
 
         if(newUser == null){
