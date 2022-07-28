@@ -1,5 +1,6 @@
 package com.example.foodapp.controller;
 import com.example.foodapp.model.entities.User;
+import com.example.foodapp.model.request.SignUpUserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,9 +22,9 @@ public class UserController {
 
     //ToDo: Import Response
     @PostMapping(value = "/signup")
-    public SignUpResponse signUpCustomer(@RequestBody User user) {
+    public SignUpResponse signUpCustomer(@RequestBody SignUpUserRequest signUpUserRequest) {
 
-        return userService.register(user);
+        return userService.register(signUpUserRequest);
     }
 
     @PostMapping(value = "/login")
