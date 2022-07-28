@@ -1,14 +1,16 @@
 package com.example.foodapp.model.entities;
 
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import javax.persistence.*;
 
-@Entity
-@Table(name = "restaurant_ratings")
+//@Entity
+//@Table(name = "restaurant_ratings")
+@Document("restaurant_ratings")
 public class RestaurantRating {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Long restaurantId;

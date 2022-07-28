@@ -4,7 +4,7 @@ public class CreateRestaurant {
     private String restaurantAddress;
     private String restaurantName;
     private String restaurantImage;
-    private Long restaurantId;
+    private Long id;
     private String jwt;
 
     public String getJwt() {
@@ -15,12 +15,12 @@ public class CreateRestaurant {
         this.jwt = jwt;
     }
 
-    public Long getRestaurantId() {
-        return restaurantId;
+    public Long getId() {
+        return id;
     }
 
-    public void setRestaurantId(Long restaurantId) {
-        this.restaurantId = restaurantId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getRestaurantAddress() {

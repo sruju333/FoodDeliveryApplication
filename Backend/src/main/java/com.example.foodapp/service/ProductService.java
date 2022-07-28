@@ -6,6 +6,7 @@ import com.example.foodapp.model.response.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -21,13 +22,14 @@ public class ProductService {
     public Response addProduct(Product product){
 
         Response response = new Response(true,"Added Product Successfully");
+        product.setId(Instant.now().getEpochSecond());
         productRepository.save(product);
         return response;
     }
 
     public Response updateProduct(Product updatedProduct){
-        long productId=updatedProduct.getProductId();
-        Product product= productRepository.findByProductId(productId);
+        long productId=updatedProduct.getId();
+        Product product= productRepository.findById(productId).orElse(null);
         Response response = new Response(true,"Product Details Updated Successfully");
         if(updatedProduct.getProductName()!=null)
             product.setProductName(updatedProduct.getProductName());

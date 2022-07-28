@@ -2,8 +2,10 @@ package com.example.foodapp.repository;
 
 import com.example.foodapp.model.entities.RestaurantRating;
 import org.springframework.data.jpa.repository.JpaRepository;
-public interface RestaurantRatingRepository extends JpaRepository<RestaurantRating,Long>{
-    RestaurantRating findById(long id);
+import org.springframework.data.mongodb.repository.MongoRepository;
+
+public interface RestaurantRatingRepository extends MongoRepository<RestaurantRating,Long> {
+
 
 
 }

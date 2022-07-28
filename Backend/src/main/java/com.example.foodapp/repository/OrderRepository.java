@@ -2,9 +2,16 @@ package com.example.foodapp.repository;
 
 import com.example.foodapp.model.entities.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface OrderRepository extends JpaRepository<Order,Long> {
+import java.util.List;
 
-    Order findByOrderId(Long orderId);
+public interface OrderRepository extends MongoRepository<Order,Long> {
+
+
+    List<Order> findByRestaurantId(Long restaurantId);
+    List<Order> findByUserId(Long userId);
+
+
 
 }
