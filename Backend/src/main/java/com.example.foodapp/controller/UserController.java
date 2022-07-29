@@ -50,7 +50,7 @@ public class UserController {
         return userService.updateUser(updatedUser);
     }
 
-    @GetMapping(value="/getUser/{id}", consumes = "application/json")
+    @GetMapping("/getUser/{id}")
     public ResponseEntity<?> getUser(@PathVariable Long id){
         return ResponseEntity.ok(userService.getUserDetails(id));
 
