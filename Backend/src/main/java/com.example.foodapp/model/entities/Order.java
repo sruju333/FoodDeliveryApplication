@@ -2,18 +2,19 @@ package com.example.foodapp.model.entities;
 
 import com.example.foodapp.enumclasses.OrderStatus;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.lang.NonNull;
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.HashMap;
 import javax.persistence.Id;
-@Entity
-@Table(name = "orders")
+//@Entity
+//@Table(name = "orders")
+@Document("orders")
 public class Order {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long orderId;
+    private Long id;
 
     private @NonNull Long userId;
 
@@ -22,7 +23,7 @@ public class Order {
     private float price;
     private Boolean paymentStatus;
 
-    private OrderStatus orderStatus;
+    private String orderStatus;
 
     @CreationTimestamp
     private Date date;
@@ -31,12 +32,12 @@ public class Order {
 
     private Long restaurantId;
 
-    public Long getOrderId() {
-        return orderId;
+    public Long getId() {
+        return id;
     }
 
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @NonNull
@@ -72,11 +73,11 @@ public class Order {
         this.paymentStatus = paymentStatus;
     }
 
-    public OrderStatus getOrderStatus() {
+    public String getOrderStatus() {
         return orderStatus;
     }
 
-    public void setOrderStatus(OrderStatus orderStatus) {
+    public void setOrderStatus(String orderStatus) {
         this.orderStatus = orderStatus;
     }
 

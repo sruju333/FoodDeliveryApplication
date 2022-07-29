@@ -1,12 +1,15 @@
 package com.example.foodapp.service;
 
 import com.example.foodapp.model.entities.Product;
+import com.example.foodapp.model.response.ProductResponse;
 import com.example.foodapp.repository.ProductRepository;
 import com.example.foodapp.model.response.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -21,13 +24,14 @@ public class ProductService {
     public Response addProduct(Product product){
 
         Response response = new Response(true,"Added Product Successfully");
+        product.setId(Instant.now().getEpochSecond());
         productRepository.save(product);
         return response;
     }
 
     public Response updateProduct(Product updatedProduct){
-        long productId=updatedProduct.getProductId();
-        Product product= productRepository.findByProductId(productId);
+        long productId=updatedProduct.getId();
+        Product product= productRepository.findById(productId).orElse(null);
         Response response = new Response(true,"Product Details Updated Successfully");
         if(updatedProduct.getProductName()!=null)
             product.setProductName(updatedProduct.getProductName());
@@ -46,4 +50,16 @@ public class ProductService {
         return response;
     }
 
+    public ProductResponse searchProduct(Long id){
+        Optional<Product> productOpt = productRepository.findById(id);
+        Product product = productOpt.get();
+        ProductResponse productResponse = new ProductResponse();
+        productResponse.setProductImage(product.getProductImage());
+        productResponse.setProductName(product.getProductName());
+        productResponse.setId(id);
+        productResponse.setPrice(product.getPrice());
+        productResponse.setVeg(product.getVeg());
+
+        return productResponse;
+    }
 }

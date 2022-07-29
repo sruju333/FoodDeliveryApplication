@@ -1,6 +1,7 @@
 package com.example.foodapp.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.*;
 
@@ -10,12 +11,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Table;
 
 
-@Entity
-@Table(name = "products")
+//@Entity
+//@Table(name = "products")
+@Document("products")
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long productId;
+    private Long id;
     private Long restaurantId;
     private String productName;
     private Float price;
@@ -28,12 +29,12 @@ public class Product {
     private Integer discount;
     private String productImage;
 
-    public Long getProductId() {
-        return productId;
+    public Long getId() {
+        return id;
     }
 
-    public void setProductId(Long productId) {
-        this.productId = productId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getRestaurantId() {

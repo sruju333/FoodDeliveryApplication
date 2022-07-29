@@ -2,10 +2,7 @@ package com.example.foodapp.controller;
 import com.example.foodapp.model.entities.User;
 import com.example.foodapp.model.request.SignUpUserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.example.foodapp.model.request.LoginRequest;
 import com.example.foodapp.model.response.SignUpResponse;
 import com.example.foodapp.service.UserService;
@@ -51,5 +48,11 @@ public class UserController {
     public String updateUser(@RequestBody User updatedUser){
 
         return userService.updateUser(updatedUser);
+    }
+
+    @GetMapping(value="/getUser/{id}", consumes = "application/json")
+    public ResponseEntity<?> getUser(@PathVariable Long id){
+        return ResponseEntity.ok(userService.getUserDetails(id));
+
     }
 }

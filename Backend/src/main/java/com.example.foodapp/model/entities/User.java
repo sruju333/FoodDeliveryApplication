@@ -1,32 +1,33 @@
 package com.example.foodapp.model.entities;
 
 import com.example.foodapp.enumclasses.UserRole;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.lang.NonNull;
 import javax.persistence.*;
 
-@Entity
-@Table(name ="userinfo")
+//@Entity
+//@Table(name ="userinfo")
+@Document("userinfo")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private Long id;
 
     private @NonNull String email;
 
     private String userName;
-    private UserRole role;
+    private String role;
     private String password;
     private String salt;
     private Integer phone;
     private String address;
     private String jwt;
 
-    public Long getUserId() {
-        return userId;
+    public Long getId() {
+        return id;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getEmail() {
@@ -45,11 +46,11 @@ public class User {
         this.userName = userName;
     }
 
-    public UserRole getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(UserRole role) {
+    public void setRole(String role) {
         this.role = role;
     }
 

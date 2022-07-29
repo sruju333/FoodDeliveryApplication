@@ -5,6 +5,7 @@ import com.example.foodapp.model.entities.User;
 import com.example.foodapp.model.request.LoginRequest;
 import com.example.foodapp.model.request.SignUpUserRequest;
 import com.example.foodapp.model.response.SignUpResponse;
+import com.example.foodapp.model.response.UserDetailsResponse;
 import com.example.foodapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -46,9 +47,10 @@ public class UserService {
         user.setAddress(signUpUserRequest.getAddress());
         user.setPhone(signUpUserRequest.getPhone());
         user.setEmail(signUpUserRequest.getEmail());
-        user.setRole(UserRole.valueOf(signUpUserRequest.getRole()));
+        user.setRole(signUpUserRequest.getRole());
         user.setJwt(signUpUserRequest.getJwt());
         user.setSalt(signUpUserRequest.getSalt());
+        user.setId(Instant.now().getEpochSecond());
 
         User newUser = userRepository.save(user);
 
@@ -88,9 +90,9 @@ public class UserService {
     }
 
     public String updateUser(User updatedUser){
-        if(updatedUser.getUserId()!=null){
+        if(updatedUser.getJwt()!=null){
 
-            User user = userRepository.findById(updatedUser.getUserId()).orElse(null);
+            User user = userRepository.findByJwt(updatedUser.getJwt());
 
             if(user!=null){
                 if(updatedUser.getUserName()!=null){
@@ -106,12 +108,30 @@ public class UserService {
                     user.setPassword(updatedUser.getPassword());
                 }
 
+            }else{
+                return "User Not Found";
             }
 
             userRepository.save(user);
 
+
         }
         return "User details updated";
+
+    }
+
+    public UserDetailsResponse getUserDetails(Long userId){
+        User user = userRepository.findById(userId).orElse(null);
+        UserDetailsResponse userDetailsResponse = new UserDetailsResponse();
+
+        userDetailsResponse.setUserName(user.getUserName());
+        userDetailsResponse.setId(userId);
+        userDetailsResponse.setEmail(user.getEmail());
+        userDetailsResponse.setRole(user.getRole());
+        userDetailsResponse.setAddress(user.getAddress());
+        userDetailsResponse.setPhone(user.getPhone());
+
+        return userDetailsResponse;
 
     }
 

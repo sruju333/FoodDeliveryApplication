@@ -10,14 +10,13 @@ import com.example.foodapp.model.entities.User;
 import com.example.foodapp.model.request.CreateRestaurant;
 import com.example.foodapp.model.request.RestaurantDetailsUpdate;
 import com.example.foodapp.model.response.CreateRestaurantResponse;
-import com.example.foodapp.model.response.Response;
 import com.example.foodapp.model.response.UpdateRestaurantResponse;
 
 import com.example.foodapp.repository.UserRepository;
-import com.mysql.cj.xdevapi.JsonArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -36,7 +35,7 @@ public class RestaurantService {
         return AllRestaurants;
     }
     public RestaurantRating getRestaurantRating(long Id){
-      RestaurantRating rating = restaurantRatingRepository.findById(Id);
+      RestaurantRating rating = restaurantRatingRepository.findById(Id).orElse(null);
       return rating;
     }
     @Autowired
@@ -44,12 +43,15 @@ public class RestaurantService {
     public CreateRestaurantResponse restaurantCreate(CreateRestaurant createRestaurant){
         CreateRestaurantResponse createRestaurantResponse=new CreateRestaurantResponse();
         Restaurant restaurant=new Restaurant();
-        Long id=createRestaurant.getRestaurantId();
-        if(restaurantRepository.findByRestaurantId(id)!=null){
-            createRestaurantResponse.setStatus(false);
-            createRestaurantResponse.setMessage("sorry, id not available");
+
+        //ToDo: id in rr
+        if(createRestaurant.getId()!=null) {
+            if (restaurantRepository.findById(createRestaurant.getId()).orElse(null) != null){
+                createRestaurantResponse.setStatus(false);
+                createRestaurantResponse.setMessage("sorry, id not available" + createRestaurant.getId());
+            }
         }else{
-            restaurant.setRestaurantId(id);
+            restaurant.setId(Instant.now().getEpochSecond());
             restaurant.setRestaurantImage(createRestaurant.getRestaurantImage());
             restaurant.setRestaurantName(createRestaurant.getRestaurantName());
             restaurant.setRestaurantAddress(createRestaurant.getRestaurantAddress());
@@ -60,12 +62,14 @@ public class RestaurantService {
                 createRestaurantResponse.setMessage("no such user");
                 return createRestaurantResponse;
             }
-            if(user.getRole()!=UserRole.RMANAGER){
+
+            //ToDo: Update
+            if(!user.getRole().equals(UserRole.RMANAGER)){
                 createRestaurantResponse.setStatus(false);
                 createRestaurantResponse.setMessage("please login as Restaurant manager to add restaurant");
                 return createRestaurantResponse;
             }
-            Long ManagerId=user.getUserId();
+            Long ManagerId=user.getId();
             restaurant.setRestaurantManagerId(ManagerId);
             restaurantRepository.save(restaurant);
             createRestaurantResponse.setStatus(true);
@@ -74,23 +78,23 @@ public class RestaurantService {
         return createRestaurantResponse;
     }
     public UpdateRestaurantResponse updateRestaurantDetails(RestaurantDetailsUpdate restaurantDetailsUpdate){
-        Restaurant restaurant=restaurantRepository.findByRestaurantId(restaurantDetailsUpdate.getRestaurantId());
+        Restaurant restaurant=restaurantRepository.findById(restaurantDetailsUpdate.getRestaurantId()).orElse(null);
         UpdateRestaurantResponse updateRestaurantResponse=new UpdateRestaurantResponse();
         if(restaurant==null){
             updateRestaurantResponse.setStatus(false);
             updateRestaurantResponse.setMessage("please enter valid restaurant id");
         }else{
 
-            if(restaurant.getRestaurantId()==restaurantDetailsUpdate.getRestaurantId()){
+            if(restaurant.getId()==restaurantDetailsUpdate.getRestaurantId()){
                 Long id=restaurant.getRestaurantManagerId();
-                User user=userRepository.findByUserId(id);
+                User user=userRepository.findById(id).orElse(null);
                 String jwt1=user.getJwt();
                 if(!(jwt1.equals(restaurantDetailsUpdate.getJwt()))){
                     updateRestaurantResponse.setStatus(false);
                     updateRestaurantResponse.setMessage("no such restaurant id for user");
                 }
                 else{
-                    if(user.getRole()!=UserRole.RMANAGER){
+                    if(!user.getRole().equals(UserRole.RMANAGER)){
                         updateRestaurantResponse.setStatus(false);
                         updateRestaurantResponse.setMessage("please login as restaurant manager");
                         return updateRestaurantResponse;

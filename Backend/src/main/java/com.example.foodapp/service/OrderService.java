@@ -15,6 +15,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class OrderService {
 
@@ -33,7 +37,7 @@ public class OrderService {
             orderSaveResponse.setMessage("Invalid user id. User does not exist");
             return new ResponseEntity<>(orderSaveResponse, HttpStatus.NOT_FOUND);
         }
-        else if(user.getRole()!= UserRole.CUSTOMER){
+        else if(!user.getRole().equals(UserRole.CUSTOMER)){
             orderSaveResponse.setStatus(false);
             orderSaveResponse.setMessage("Invalid user id. Only customers can place orders");
             return new ResponseEntity<>(orderSaveResponse,HttpStatus.UNAUTHORIZED);
@@ -46,18 +50,19 @@ public class OrderService {
             Order order = new Order();
             order.setProducts(orderSaveRequest.getProducts());
             order.setUserId(orderSaveRequest.getUserId());
-            order.setOrderStatus(OrderStatus.valueOf(orderSaveRequest.getOrderStatus()));
+            order.setOrderStatus(orderSaveRequest.getOrderStatus());
             order.setDeliveryAddress(orderSaveRequest.getDeliveryAddress());
             order.setPaymentStatus(orderSaveRequest.getPaymentStatus());
             order.setPrice(orderSaveRequest.getPrice());
             order.setRestaurantId(orderSaveRequest.getRestaurantId());
+            order.setId(Instant.now().getEpochSecond());
 
             Order newOrder= ordersRepository.save(order);
 
             if(newOrder!=null){
                 orderSaveResponse.setStatus(true);
                 orderSaveResponse.setMessage("Order placed successfully");
-                orderSaveResponse.setOrderId(newOrder.getOrderId());
+                orderSaveResponse.setOrderId(newOrder.getId());
                 return new ResponseEntity<>(orderSaveResponse, HttpStatus.OK);
             }
             else{
@@ -86,8 +91,8 @@ public class OrderService {
             return new ResponseEntity<>(response,HttpStatus.UNAUTHORIZED);
         } else{
 
-            Order order = ordersRepository.findByOrderId(updateOrderStatusRequest.getOrderId());
-            order.setOrderStatus(OrderStatus.valueOf(updateOrderStatusRequest.getOrderStatus()));
+            Order order = ordersRepository.findById(updateOrderStatusRequest.getOrderId()).orElse(null);
+            order.setOrderStatus(updateOrderStatusRequest.getOrderStatus());
             Order newOrder= ordersRepository.save(order);
 
             if(newOrder!=null){
@@ -104,6 +109,21 @@ public class OrderService {
         }
 
 
+    }
+
+    public List<Order> getOrders(Long userId, Long restaurantId, Long orderId){
+        List<Order> orders=new ArrayList<Order>();
+        if(userId!=null && userId>=1 && restaurantId<1 && orderId<1){
+            orders=ordersRepository.findByUserId(userId);
+        }else if(restaurantId!=null && restaurantId>=1 && userId<1 && orderId<1){
+
+            System.out.println(restaurantId);
+            orders=ordersRepository.findByRestaurantId(restaurantId);
+        }else if(orderId!=null && orderId>=1 && restaurantId<1 && userId<1){
+            Order newOrder=ordersRepository.findById(orderId).orElse(null);
+            orders.add(newOrder);
+        }else{}
+        return orders;
     }
 
 }
