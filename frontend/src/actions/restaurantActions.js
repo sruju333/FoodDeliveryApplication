@@ -5,7 +5,9 @@ export const listRestaurants = () => async (dispatch) => {
     try {
         dispatch({type: RESTAURANT_LIST_REQUEST})
 
-        const {data} = await axios.get('/api/restaurants')
+        const {data} = await axios.create({
+            baseURL: 'https://food-delivery-app-123.herokuapp.com'
+          }).get('/restaurant/')
 
         dispatch({
             type: RESTAURANT_LIST_SUCCESS,

@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import CheckoutSteps from '../components/CheckoutSteps'
-import { createOrder } from '../actions/orderActions'
+import { createOrder, payOrder } from '../actions/orderActions'
 
 const PlaceOrderScreen = () => {
     const navigate = useNavigate()
@@ -12,9 +12,9 @@ const PlaceOrderScreen = () => {
 
   const cart = useSelector((state) => state.cart)
 
-  if (!cart.shippingAddress.address) {
+  if (!cart.shippingAddress) {
     navigate('/shipping')
-  } else if (!cart.paymentMethod) {
+  } else {
     navigate('/payment')
   }
   //   Calculate prices
@@ -25,34 +25,34 @@ const PlaceOrderScreen = () => {
   cart.itemsPrice = addDecimals(
     cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)
   )
-  cart.shippingPrice = addDecimals(cart.itemsPrice > 100 ? 0 : 100)
-  cart.taxPrice = addDecimals(Number((0.15 * cart.itemsPrice).toFixed(2)))
-  cart.totalPrice = (
-    Number(cart.itemsPrice) +
-    Number(cart.shippingPrice) +
-    Number(cart.taxPrice)
-  ).toFixed(2)
+
+  cart.itemsQty = addDecimals(
+    cart.cartItems.reduce((acc, item) => acc + item.qty, 0)
+  )
 
   const orderCreate = useSelector((state) => state.orderCreate)
   const { order, success, error } = orderCreate
 
   useEffect(() => {
     if (success) {
-      navigate(`/order/${order._id}`)
+      navigate(`/order/${order.id}`)
     }
     // eslint-disable-next-line
   }, [success])
 
+  const productList = new Map()
+  cart.cartItems.map((p) => {return [p.product, p.qty]})
+
   const placeOrderHandler = () => {
     dispatch(
       createOrder({
-        orderItems: cart.cartItems,
+        totalPrice: cart.itemsPrice,
+        orderStatus: 'PROCESSING',
+        paymentStatus: true,
         shippingAddress: cart.shippingAddress,
-        paymentMethod: cart.paymentMethod,
-        itemsPrice: cart.itemsPrice,
-        shippingPrice: cart.shippingPrice,
-        taxPrice: cart.taxPrice,
-        totalPrice: cart.totalPrice,
+        resId: cart.cartItems[0].resId,
+        products: productList
+
       })
     )
   }
@@ -67,16 +67,8 @@ const PlaceOrderScreen = () => {
               <h2>Shipping</h2>
               <p>
                 <strong>Address:</strong>
-                {cart.shippingAddress.address}, {cart.shippingAddress.city}{' '}
-                {cart.shippingAddress.postalCode},{' '}
-                {cart.shippingAddress.country}
+                {cart.shippingAddress}
               </p>
-            </ListGroup.Item>
-
-            <ListGroup.Item>
-              <h2>Payment Method</h2>
-              <strong>Method: </strong>
-              {cart.paymentMethod}
             </ListGroup.Item>
 
             <ListGroup.Item>
@@ -97,9 +89,7 @@ const PlaceOrderScreen = () => {
                           />
                         </Col>
                         <Col>
-                          <Link to={`/product/${item.product}`}>
                             {item.name}
-                          </Link>
                         </Col>
                         <Col md={4}>
                           {item.qty} x ${item.price} = ${item.qty * item.price}
@@ -120,26 +110,8 @@ const PlaceOrderScreen = () => {
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
-                  <Col>Items</Col>
-                  <Col>${cart.itemsPrice}</Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Row>
-                  <Col>Shipping</Col>
-                  <Col>${cart.shippingPrice}</Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Row>
-                  <Col>Tax</Col>
-                  <Col>${cart.taxPrice}</Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Row>
                   <Col>Total</Col>
-                  <Col>${cart.totalPrice}</Col>
+                  <Col>${cart.itemsPrice}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>

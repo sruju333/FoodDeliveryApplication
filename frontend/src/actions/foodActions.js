@@ -6,7 +6,9 @@ export const listFoods = (id) => async (dispatch) => {
     try {
         dispatch({type: FOOD_LIST_REQUEST})
 
-        const {data} = await axios.get(`/api/restaurants/${id}`)
+        const {data} = await axios.create({
+            baseURL: 'https://food-delivery-app-123.herokuapp.com'
+          }).get(`/restaurant/products/${id}`)
 
         dispatch({
             type: FOOD_LIST_SUCCESS,

@@ -8,9 +8,12 @@ import FormContainer from '../components/FormContainer'
 import { register } from '../actions/userActions'
 
 const RegisterScreen = () => {
-    const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
+    const [userName, setName] = useState('')
     const [password, setPassword] = useState('')
+    const [phone, setPhone] = useState('')
+    const [email, setEmail] = useState('')
+    const [role, setRole] = useState('')
+    const [address, setAddress] = useState()
     const [confirmPassword, setConfirmPassword] = useState('')
     const [message, setMessage] = useState(null)
     const navigate = useNavigate()
@@ -33,7 +36,7 @@ const RegisterScreen = () => {
         e.preventDefault()
         if (password!==confirmPassword) {
             setMessage('Passwords do not match')
-        } else {dispatch(register(name, email, password))}
+        } else {dispatch(register(userName, role, password, phone, address, email))}
         
     }
 
@@ -46,13 +49,32 @@ const RegisterScreen = () => {
             <Form onSubmit={submitHandler}>
             <Form.Group controlId='name'>
                     <Form.Label>Name</Form.Label>
-                    <Form.Control type='name' placeholder='Enter name' value={name} onChange={(e) => setName(e.target.value)}></Form.Control>
+                    <Form.Control type='name' placeholder='Enter name' value={userName} onChange={(e) => setName(e.target.value)}></Form.Control>
+                </Form.Group>
+
+                <Form.Group controlId='phone'>
+                    <Form.Label>Phone Number</Form.Label>
+                    <Form.Control type='phone' placeholder='Enter phone' value={phone} onChange={(e) => setPhone(e.target.value)}></Form.Control>
                 </Form.Group>
 
                 <Form.Group controlId='email'>
                     <Form.Label>Email Address</Form.Label>
                     <Form.Control type='email' placeholder='Enter email' value={email} onChange={(e) => setEmail(e.target.value)}></Form.Control>
                 </Form.Group>
+
+                <Form.Group controlId='address'>
+                    <Form.Label>Address</Form.Label>
+                    <Form.Control type='text' placeholder='Enter address' value={address} onChange={(e) => setAddress(e.target.value)}></Form.Control>
+                </Form.Group>
+
+                <Form.Group>
+                    <Form.Label>Role</Form.Label>
+                <Form.Control as='select' value={role} onChange={(e) => setRole(e.target.value)}>
+                            <option value='CUSTOMER'>Customer</option>
+                            <option value='RMANAGER'>Restaurant Manager</option>
+                        </Form.Control>
+                </Form.Group>
+                
 
                 <Form.Group controlId='password'>
                     <Form.Label>Password</Form.Label>

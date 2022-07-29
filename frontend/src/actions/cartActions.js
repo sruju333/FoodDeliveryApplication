@@ -2,15 +2,19 @@ import {CART_ADD_ITEM, CART_REMOVE_ITEM, CART_SAVE_PAYMENT_METHOD, CART_SAVE_SHI
 import axios from 'axios'
 
 export const addToCart = (id, qty) => async (dispatch, getState) => {
-    const {data} = await axios.get(`/api/restaurant/${id}`)
+
+    const {data} = await axios.create({
+        baseURL: 'https://food-delivery-app-123.herokuapp.com'
+      }).get(`/product/${id}`)
 
     dispatch({
         type: CART_ADD_ITEM,
         payload: {
-            product: data._id,
-            name: data.name,
-            image: data.image,
+            product: data.id,
+            name: data.productName,
+            image: data.productImage,
             price: data.price,
+            resId: data.restaurantId,
             qty
         }
     })
