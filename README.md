@@ -1,7 +1,7 @@
 # FoodDeliveryApplication
 ### Ola Group 5 - Food Application
 
-###Frontend folder pushed in the rajjyoti branch
+### Frontend folder pushed in the rajjyoti branch
 
 - Rajjyoti Doley
 - Sourabh Chauhan
